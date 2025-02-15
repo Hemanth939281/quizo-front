@@ -9,7 +9,7 @@ export const loginUser = async (username, password) => {
     });
     
     if (!response.ok) {
-      throw new Error("Invalid credentials");
+      return response.message;
     }
     
     return response.json();
