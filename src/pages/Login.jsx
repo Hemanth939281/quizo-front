@@ -23,13 +23,9 @@ const Login = () => {
     try {
       const response = await loginUser(username, password);
   
-      if (!response || typeof response !== "object") {
-        toast.error("unexpected server response");
-      }
-  
-      if (response.message === "Login successful") {  
+      if (response.message === "Login successful" && response.user) {  
         toast.success("Successfully logged in");
-        localStorage.setItem("user", JSON.stringify(response.user || { username }));
+        localStorage.setItem("user", JSON.stringify(response.user));
         navigate("/dashboard");
       } else {
         toast.error(response.message);
@@ -38,6 +34,7 @@ const Login = () => {
       toast.error("Login failed. Please try again.");
     }
   };
+  
   
 
   return (
