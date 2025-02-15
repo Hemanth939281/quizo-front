@@ -9,6 +9,7 @@ export const loginUser = async (username, password) => {
     });
 
     const data = await response.json();
+    console.log("response: ",data);
 
     if (!response.ok) {
       return data.message || "Login failed";
