@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/authApi";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -25,17 +26,18 @@ const Login = () => {
       const response = await loginUser(username, password);
   
       if (!response || typeof response !== "object") {
-        throw new Error("Unexpected server response");
+        toast.error("unexpected server response");
       }
   
       if (response.message === "Login successful") {  
+        toast.success("Successfully logged in");
         localStorage.setItem("user", JSON.stringify(response.user || { username }));
         navigate("/dashboard");
       } else {
-        setError(response.message || "Invalid username or password");
+        toast.error("Invalid username or password");
       }
     } catch (error) {
-      setError("Server error. Please try again.");
+      setError("Login failed. Please try again.");
       console.error("Login error:", error);
     }
   };

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getQuizById, updateQuiz } from "../api/quizApi";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import toast from "react-hot-toast";
 
 const EditQuiz = () => {
   const [title, setTitle] = useState("");
@@ -20,6 +21,7 @@ const EditQuiz = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await updateQuiz(id, { title, description });
+    toast.success("Quiz updated successfully");
     navigate("/dashboard");
   };
 

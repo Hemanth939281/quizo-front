@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createQuiz } from "../api/quizApi";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import toast from "react-hot-toast";
 
 const CreateQuiz = () => {
   const [title, setTitle] = useState("");
@@ -20,9 +21,9 @@ const CreateQuiz = () => {
     e.preventDefault();
     const response =  await createQuiz({ title, description, teacherId: 1 });
     if (response) {
-      alert("Quiz created successfully!");
+      toast.success("Quiz created successfully");
     } else {
-      alert("Failed to create quiz.");
+      toast.error("Failed to create quiz. Please try again.");
     }
     navigate("/dashboard");
   };

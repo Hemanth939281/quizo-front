@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getQuizzes, deleteQuiz } from "../api/quizApi";
 import Button from "../components/Button";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
   
@@ -23,6 +24,7 @@ const Dashboard = () => {
     if (window.confirm("Are you sure you want to delete this quiz?")) {
       await deleteQuiz(id);
       setQuizzes((prev) => prev.filter((quiz) => quiz.id !== id));
+      toast.success("Quizzes deleted successfully");
     }
   };
 
