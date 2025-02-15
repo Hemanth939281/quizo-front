@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react"; 
 import Button from "./Button";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    toast.success("logged out successfully");
     navigate("/");
   };
 
