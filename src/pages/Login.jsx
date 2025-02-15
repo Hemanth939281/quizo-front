@@ -32,7 +32,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(response.user || { username }));
         navigate("/dashboard");
       } else {
-        toast.error("Invalid username or password");
+        toast.error(response.message);
       }
     } catch (error) {
       toast.error("Login failed. Please try again.");
