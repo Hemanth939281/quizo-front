@@ -1,3 +1,27 @@
+// const API_URL = import.meta.env.VITE_API_URL || "https://quizo-0yib.onrender.com";
+
+// export const loginUser = async (username, password) => {
+//   try {
+//     const response = await fetch(`${API_URL}/api/auth/login`, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ username, password }),
+//     });
+
+//     const data = await response.json();
+//     console.log("response: ",data);
+
+//     if (!response.ok) {
+//       return data;
+//     }
+
+//     return data;
+//   } catch (error) {
+//     console.error("Login error:", error);
+//     return { message: error.message };
+//   }
+// };
+
 const API_URL = import.meta.env.VITE_API_URL || "https://quizo-0yib.onrender.com";
 
 export const loginUser = async (username, password) => {
@@ -9,7 +33,7 @@ export const loginUser = async (username, password) => {
     });
 
     const data = await response.json();
-    console.log("response: ",data);
+    console.log("response: ", data);
 
     if (!response.ok) {
       return data;
@@ -22,3 +46,24 @@ export const loginUser = async (username, password) => {
   }
 };
 
+export const signupUser = async (username, password) => {
+  try {
+    const response = await fetch(`${API_URL}/api/auth/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await response.json();
+    console.log("response: ", data);
+
+    if (!response.ok) {
+      return data;
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Signup error:", error);
+    return { message: error.message };
+  }
+};
