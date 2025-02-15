@@ -23,7 +23,7 @@ const Login = () => {
     try {
       const response = await loginUser(username, password);
   
-      if (response.message === "Login successful" && response.user) {  
+      if (response.message === "Login successful") {  
         toast.success("Successfully logged in");
         localStorage.setItem("user", JSON.stringify(response.user));
         navigate("/dashboard");
