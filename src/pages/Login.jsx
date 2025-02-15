@@ -20,17 +20,16 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
-
+  
     try {
       const response = await loginUser(username, password);
-      
-      
+  
       if (!response || typeof response !== "object") {
         throw new Error("Unexpected server response");
       }
-
-      if (response.ok) {
-        localStorage.setItem("user", JSON.stringify(response.user));
+  
+      if (response.message === "Login successful") {  
+        localStorage.setItem("user", JSON.stringify(response.user || { username }));
         navigate("/dashboard");
       } else {
         setError(response.message || "Invalid username or password");
@@ -40,6 +39,7 @@ const Login = () => {
       console.error("Login error:", error);
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen lg:bg-gradient-to-r lg:from-gray-200 lg:to-gray-300 rounded-lg">
