@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser, signupUser } from "../api/authApi";
-import Input from "../components/Input";
 import Button from "../components/Button";
 import toast from "react-hot-toast";
 
@@ -20,14 +19,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const username = usernameRef.current?.value || "";
-    const password = passwordRef.current?.value || "";
-    
+    const username = usernameRef.current?.value.trim() || "";
+    const password = passwordRef.current?.value.trim() || "";
+
     if (!username || !password) {
       toast.error("Please fill in all fields.");
       return;
     }
-    
+
     try {
       const response = isSignUp
         ? await signupUser(username, password)
@@ -51,17 +50,17 @@ const Login = () => {
         <h2 className="text-3xl font-semibold text-gray-800 text-center mb-6">
           {isSignUp ? "Create an Account" : "Welcome Back"}
         </h2>
-        
+
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <Input
+            <input
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
               placeholder="Username"
               ref={usernameRef}
             />
           </div>
           <div>
-            <Input
+            <input
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
               type="password"
               placeholder="Password"
@@ -75,11 +74,11 @@ const Login = () => {
             {isSignUp ? "Sign Up" : "Login"}
           </Button>
         </form>
-        
+
         <p className="text-center text-gray-600 mt-4">
-          {isSignUp ? "Already have an account?" : "Don't have an account?"} 
-          <button 
-            className="text-blue-600 hover:underline ml-2" 
+          {isSignUp ? "Already have an account?" : "Don't have an account?"}
+          <button
+            className="text-blue-600 hover:underline ml-2"
             onClick={() => setIsSignUp(!isSignUp)}
           >
             {isSignUp ? "Login" : "Sign Up"}
