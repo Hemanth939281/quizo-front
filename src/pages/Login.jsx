@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +19,6 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(null);
   
     try {
       const response = await loginUser(username, password);
@@ -48,7 +46,6 @@ const Login = () => {
         <h2 className="text-3xl font-semibold text-gray-800 text-center mb-6">
           Welcome Back
         </h2>
-        {error && <p className="text-red-500 text-center">{error}</p>}
         
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
