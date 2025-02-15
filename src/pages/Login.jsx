@@ -28,6 +28,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(response.user));
         navigate("/dashboard");
       } else {
+        console.log("Error: " + response.message)
         toast.error(response.message);
       }
     } catch (error) {
