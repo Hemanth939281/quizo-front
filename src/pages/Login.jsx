@@ -21,10 +21,24 @@ const Login = () => {
     e.preventDefault();
     setError(null);
 
-    const success = await loginUser(username, password);
-    localStorage.setItem("user", username);
-    if (success) navigate("/dashboard");
-    else setError("Invalid credentials");
+    try {
+      const response = await loginUser(username, password);
+      
+      
+      if (!response || typeof response !== "object") {
+        throw new Error("Unexpected server response");
+      }
+
+      if (response.ok) {
+        localStorage.setItem("user", JSON.stringify(response.user));
+        navigate("/dashboard");
+      } else {
+        setError(response.message || "Invalid username or password");
+      }
+    } catch (error) {
+      setError("Server error. Please try again.");
+      console.error("Login error:", error);
+    }
   };
 
   return (
