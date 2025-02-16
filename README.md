@@ -146,7 +146,7 @@ npm install
 
 ### Start Server
 ```
-npm start
+npm run dev
 ```
 
 The server runs on port `5000` by default, unless changed in `.env`.
