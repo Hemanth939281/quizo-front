@@ -76,7 +76,7 @@ const CreateQuiz = () => {
               <input
                 ref={titleRef} // Using titleRef to track title
                 placeholder="Enter quiz title"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-blue-500 transition-colors"
               />
             </div>
 
@@ -88,7 +88,7 @@ const CreateQuiz = () => {
               <input
                 ref={descriptionRef} // Using descriptionRef to track description
                 placeholder="Enter quiz description"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-blue-500 transition-colors"
               />
             </div>
           </div>
