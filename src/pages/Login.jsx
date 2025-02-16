@@ -7,6 +7,7 @@ const Login = () => {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,11 +22,17 @@ const Login = () => {
     const username = usernameRef.current?.value.trim() || "";
     const password = passwordRef.current?.value.trim() || "";
 
+    // Basic Validation
     if (!username || !password) {
       toast.error("Please fill in all fields.");
       return;
     }
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters.");
+      return;
+    }
 
+    setLoading(true);
     try {
       const response = isSignUp
         ? await signupUser(username, password)
@@ -39,12 +46,14 @@ const Login = () => {
         toast.error(response.message);
       }
     } catch (error) {
-      toast.error(isSignUp ? "Signup failed. Please try again." : "Login failed. Please try again.");
+      toast.error(error.response?.data?.message || "Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen lg:bg-gradient-to-r lg:from-gray-200 lg:to-gray-300 rounded-lg">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-xl shadow-lg w-96">
         <h2 className="text-3xl font-semibold text-gray-800 text-center mb-6">
           {isSignUp ? "Create an Account" : "Welcome Back"}
@@ -62,15 +71,18 @@ const Login = () => {
             <input
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
               type="password"
-              placeholder="Password"
+              placeholder="Password (min. 6 chars)"
               ref={passwordRef}
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition duration-200"
+            disabled={loading}
+            className={`w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition duration-200 ${
+              loading && "opacity-50 cursor-not-allowed"
+            }`}
           >
-            {isSignUp ? "Sign Up" : "Login"}
+            {loading ? "Processing..." : isSignUp ? "Sign Up" : "Login"}
           </button>
         </form>
 
