@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createQuiz } from "../api/quizApi";
-import Input from "../components/Input";
-import Button from "../components/Button";
 import toast from "react-hot-toast";
 
 const CreateQuiz = () => {
@@ -75,7 +73,7 @@ const CreateQuiz = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Quiz Title
               </label>
-              <Input
+              <input
                 ref={titleRef} // Using titleRef to track title
                 placeholder="Enter quiz title"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
@@ -87,7 +85,7 @@ const CreateQuiz = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Description
               </label>
-              <Input
+              <input
                 ref={descriptionRef} // Using descriptionRef to track description
                 placeholder="Enter quiz description"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
@@ -96,7 +94,7 @@ const CreateQuiz = () => {
           </div>
 
           {/* Submit Button with Loading State */}
-          <Button
+          <button
             type="submit"
             disabled={loading} // Disable button when loading
             className={`w-full ${
@@ -106,7 +104,7 @@ const CreateQuiz = () => {
             } text-white font-medium py-2.5 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg`}
           >
             {loading ? "Creating..." : "Create Quiz"}
-          </Button>
+          </button>
         </form>
       </div>
     </div>
