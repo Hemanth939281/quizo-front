@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser, signupUser } from "../api/authApi";
-import Button from "../components/Button";
 import toast from "react-hot-toast";
 
 const Login = () => {
@@ -67,12 +66,12 @@ const Login = () => {
               ref={passwordRef}
             />
           </div>
-          <Button
+          <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition duration-200"
           >
             {isSignUp ? "Sign Up" : "Login"}
-          </Button>
+          </button>
         </form>
 
         <p className="text-center text-gray-600 mt-4">

@@ -25,7 +25,7 @@ const Dashboard = () => {
         console.error("Error fetching quizzes:", error);
       })
       .finally(() => {
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); //  loading to false after data is fetched
       });
   }, []);
 
