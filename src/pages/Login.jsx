@@ -4,12 +4,20 @@ import { loginUser, signupUser } from "../api/authApi";
 import toast from "react-hot-toast";
 
 const Login = () => {
+  // Refs for input fields
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
+
+  // State for tracking sign-up or login mode
   const [isSignUp, setIsSignUp] = useState(false);
+
+  // State for managing loading state
   const [loading, setLoading] = useState(false);
+
+  // Hook for programmatic navigation
   const navigate = useNavigate();
 
+  // Check if user is already logged in and redirect to dashboard
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user) {
@@ -17,12 +25,15 @@ const Login = () => {
     }
   }, [navigate]);
 
+  // Handle form submission for login/signup
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Get input values and trim spaces
     const username = usernameRef.current?.value.trim() || "";
     const password = passwordRef.current?.value.trim() || "";
 
-    // Basic Validation
+    // Basic input validation
     if (!username || !password) {
       toast.error("Please fill in all fields.");
       return;
@@ -32,34 +43,50 @@ const Login = () => {
       return;
     }
 
-    setLoading(true);
+    setLoading(true); // Set loading state to true while processing request
+
     try {
+      // Determine whether to call login or signup API
       const response = isSignUp
         ? await signupUser(username, password)
         : await loginUser(username, password);
 
-      if (response.message === (isSignUp ? "Signup successful" : "Login successful")) {
-        toast.success(isSignUp ? "Successfully signed up" : "Successfully logged in");
+      // Handle success response
+      if (
+        response.message ===
+        (isSignUp ? "Signup successful" : "Login successful")
+      ) {
+        toast.success(
+          isSignUp ? "Successfully signed up" : "Successfully logged in"
+        );
+
+        // Store user data in localStorage and navigate to dashboard
         localStorage.setItem("user", JSON.stringify(response.user));
         navigate("/dashboard");
       } else {
-        toast.error(response.message);
+        toast.error(response.message); // Show error message if any
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong. Try again.");
+      // Handle API errors
+      toast.error(
+        error.response?.data?.message || "Something went wrong. Try again."
+      );
     } finally {
-      setLoading(false);
+      setLoading(false); // Reset loading state
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-xl shadow-lg w-96">
+        {/* Form Title */}
         <h2 className="text-3xl font-semibold text-gray-800 text-center mb-6">
           {isSignUp ? "Create an Account" : "Welcome Back"}
         </h2>
 
+        {/* Login / Signup Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Username Input */}
           <div>
             <input
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
@@ -67,6 +94,8 @@ const Login = () => {
               ref={usernameRef}
             />
           </div>
+
+          {/* Password Input */}
           <div>
             <input
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
@@ -75,6 +104,8 @@ const Login = () => {
               ref={passwordRef}
             />
           </div>
+
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
@@ -86,6 +117,7 @@ const Login = () => {
           </button>
         </form>
 
+        {/* Toggle Login/Signup Mode */}
         <p className="text-center text-gray-600 mt-4">
           {isSignUp ? "Already have an account?" : "Don't have an account?"}
           <button
